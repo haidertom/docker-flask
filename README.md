@@ -5,23 +5,15 @@ Simply put everything you need inside the container and this is how you can prop
 
 ### usage
 
-You will need Docker running on your system and some basic python packages for the client:
+You will need Docker running on your system. Then we can use the `docker-compose` command to build the image and spin up the container:
+
+`docker-compose up` 
+
+This will do everything specified in the Dockerfile (pull the ubuntu docker image, install python, copy the folder to the container and intall the specified requirements) and start the containers along with some specifications. The entrypoint just specifies what happens by default when we start a container from this image. It will also bind-mound the local folder to the folder in the container. Any changes you make in the app will therefore be directly visible. For details on what happens exactly just inspect the `docker-compose.yml` file.
+
+For the client, we also need some python requirements.
 
 `python3 -m pip install requests jsonpickle pillow numpy matplotlib`
-
-Build the docker image: 
-
-`docker image build -t flaskapp:latest .`
-
-This will pull the ubuntu docker image, install python and the requirements we need in the container. The entrypoint just specifies what happens by default when we start a container from this image later.
-
-
-Now we can run the container:
-
-`sh run_container.sh`
-
-This will bind-mound the local folder to the folder in the container. Any changes you make in the app will therefore be directly visible. 
-For details on what happens exactly just inspect the shell script, which is just the `docker run` command. 
 
 Finally you can run your client application:
 

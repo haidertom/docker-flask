@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+  # we can name the service however we like
+  app-container:
+    # Specify which dockerfile to use to build container for this service
+    build: .
+    # specify the name of the image
+    image: flaskapp:latest
+    # specify the name of the container 
+    container_name: app-container
+    # the image when it's build already has code inside because of the COPY 
+    # command but mounting a volume will direclty link the local folder to the 
+    # folder inside the container
+    volumes:
+        - ./flaskapp:/flaskapp
+    working_dir: /flaskapp
+    # Services that are started from the same docker-compose file can be accesd 
+    # locally at the specified port but from inside one of the containers at
+    # http://<container-name>
+    ports:
+        - 5007:5007
